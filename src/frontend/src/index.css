@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk";
+    --font-body: "DM Sans";
+    --font-mono: "JetBrains Mono";
+    --radius: 0.625rem;
+
+    --background: 0.98 0.008 80;
+    --foreground: 0.15 0.02 35;
+    --card: 1.0 0.0 0;
+    --card-foreground: 0.15 0.02 35;
+    --popover: 1.0 0.0 0;
+    --popover-foreground: 0.15 0.02 35;
+
+    --primary: 0.63 0.22 35;
+    --primary-foreground: 0.98 0.008 80;
+
+    --secondary: 0.45 0.14 155;
+    --secondary-foreground: 0.98 0.008 80;
+    --muted: 0.92 0.01 80;
+    --muted-foreground: 0.5 0.015 35;
+
+    --accent: 0.72 0.2 35;
+    --accent-foreground: 0.98 0.008 80;
+
+    --destructive: 0.55 0.25 15;
+    --destructive-foreground: 0.98 0.008 80;
+
+    --border: 0.88 0.015 80;
+    --input: 0.88 0.015 80;
+    --ring: 0.63 0.22 35;
+
+    --chart-1: 0.63 0.22 35;
+    --chart-2: 0.45 0.14 155;
+    --chart-3: 0.55 0.25 15;
+    --chart-4: 0.72 0.2 35;
+    --chart-5: 0.65 0.18 150;
+
+    --sidebar: 0.98 0.008 80;
+    --sidebar-foreground: 0.15 0.02 35;
+    --sidebar-primary: 0.63 0.22 35;
+    --sidebar-primary-foreground: 0.98 0.008 80;
+    --sidebar-accent: 0.92 0.01 80;
+    --sidebar-accent-foreground: 0.3 0.025 35;
+    --sidebar-border: 0.88 0.015 80;
+    --sidebar-ring: 0.63 0.22 35;
+
+    --color-star: oklch(0.85 0.18 85);
+
+    --gradient-urgent: linear-gradient(
+      135deg,
+      oklch(0.63 0.22 35 / 1) 0%,
+      oklch(0.72 0.2 35 / 1) 100%
+    );
+    --gradient-trust: linear-gradient(
+      135deg,
+      oklch(0.45 0.14 155 / 1) 0%,
+      oklch(0.55 0.18 150 / 1) 100%
+    );
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .gradient-urgent {
+    background: var(--gradient-urgent);
+  }
+
+  .gradient-trust {
+    background: var(--gradient-trust);
+  }
+
+  .text-urgent {
+    @apply font-display font-bold tracking-tight;
+  }
+
+  .badge-urgency {
+    @apply inline-block px-3 py-1 rounded-full text-xs font-bold bg-destructive text-destructive-foreground;
+  }
+
+  .pulse-highlight {
+    animation: pulse-highlight 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .shadow-subtle {
+    box-shadow: 0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px
+      oklch(0 0 0 / 0.1);
+  }
+
+  .shadow-glow-primary {
+    box-shadow: 0 0 20px oklch(0.63 0.22 35 / 0.3);
+  }
+
+  .shadow-glow-secondary {
+    box-shadow: 0 0 20px oklch(0.45 0.14 155 / 0.3);
+  }
+
+  @keyframes pulse-highlight {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out both;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out both;
+  }
+
+  .text-star {
+    color: var(--color-star);
+  }
+}

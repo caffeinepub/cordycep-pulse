@@ -1,0 +1,19 @@
+type Order = 
+ record {
+   address: text;
+   city: text;
+   name: text;
+   orderId: text;
+   phone: text;
+   pincode: text;
+   price: nat;
+   quantity: nat;
+   state: text;
+   timestamp: int;
+ };
+service : {
+  getOrderCount: () -> (nat) query;
+  getOrders: () -> (vec Order) query;
+  submitOrder: (name: text, phone: text, address: text, city: text, state:
+   text, pincode: text, quantity: nat, price: nat) -> (text);
+}

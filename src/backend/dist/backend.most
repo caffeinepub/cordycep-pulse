@@ -1,0 +1,24 @@
+// Version: 1.0.0
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Order__141779993 =
+  {
+    address : Text;
+    city : Text;
+    name : Text;
+    orderId : Text;
+    phone : Text;
+    pincode : Text;
+    price : Nat;
+    quantity : Nat;
+    state : Text;
+    timestamp : Int
+  };
+actor {
+  stable orders :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Order__141779993]];
+      var elementIndex : Nat__490723111
+    }
+};
