@@ -118,18 +118,12 @@ function HeroSection() {
           style={{ animationDelay: "0.2s" }}
         >
           <div className="relative">
-            <div className="w-56 h-56 sm:w-72 sm:h-72 rounded-full gradient-trust flex items-center justify-center shadow-glow-secondary">
-              <div className="w-40 h-40 sm:w-52 sm:h-52 rounded-full bg-card/90 flex flex-col items-center justify-center gap-2 shadow-subtle">
-                <Leaf className="w-12 h-12 text-secondary" />
-                <div className="font-display font-bold text-center text-foreground text-sm leading-tight px-4">
-                  Cordycep
-                  <br />
-                  Pulse
-                </div>
-                <div className="text-xs text-muted-foreground">
-                  100% Ayurvedic
-                </div>
-              </div>
+            <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-2xl gradient-trust flex items-center justify-center shadow-glow-secondary p-3">
+              <img
+                src="/assets/images/product.png"
+                alt="Cordycep Pulse – 100% Ayurvedic Joint Pain Relief"
+                className="w-full h-full object-contain drop-shadow-2xl rounded-xl"
+              />
             </div>
             {/* floating badges */}
             <div className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full w-14 h-14 flex items-center justify-center text-xs font-bold text-center leading-tight shadow-lg">

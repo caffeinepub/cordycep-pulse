@@ -15,19 +15,31 @@ export function Layout({ children, onOrderClick }: LayoutProps) {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* Facebook Video — mobile only, 9:16 portrait, above everything */}
-      <div
-        className="md:hidden w-full bg-black"
-        data-ocid="mobile-video-section"
-      >
-        <div className="relative w-full" style={{ paddingBottom: "177.78%" }}>
-          <iframe
-            src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F17rhVJEo1R%2F&show_text=false&width=500"
-            className="absolute inset-0 w-full h-full border-0"
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-            allowFullScreen
-            title="Cordycep Pulse Product Video"
-          />
+      {/* Hindi headline + Google Drive Video — mobile only, above everything */}
+      <div className="md:hidden w-full" data-ocid="mobile-video-section">
+        {/* Bold Hindi headline above video */}
+        <div className="w-full bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 px-4 py-4 text-center border-b-2 border-orange-300">
+          <p className="text-xl font-extrabold leading-snug bg-gradient-to-r from-orange-600 via-red-500 to-yellow-500 bg-clip-text text-transparent">
+            🌿 पीठ और घुटनों के दर्द से छुटकारा पाने का सबसे असरदार देसी नुस्खा सिर्फ 4 घंटे
+            में! ⚡
+          </p>
+          <p className="mt-2 text-base font-bold leading-snug bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 bg-clip-text text-transparent">
+            जिन 94% लोगों ने यह वीडियो अंत तक देखा, उन्हें 4 घंटे में जोड़ों का दर्द हमेशा के
+            लिए गायब हो गया!
+          </p>
+        </div>
+
+        {/* Video player */}
+        <div className="w-full bg-black">
+          <div className="relative w-full" style={{ paddingBottom: "177.78%" }}>
+            <iframe
+              src="https://drive.google.com/file/d/1oCVrC5zcMJJAQE_LINsLvqDmDPMelcCz/preview"
+              className="absolute inset-0 w-full h-full border-0"
+              allow="autoplay"
+              allowFullScreen
+              title="Cordycep Pulse Product Video"
+            />
+          </div>
         </div>
       </div>
 
