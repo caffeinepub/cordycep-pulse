@@ -2,31 +2,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Award,
-  Bone,
   CheckCircle,
   CreditCard,
-  FlameKindling,
-  HeartPulse,
   Leaf,
-  Package,
   Phone,
   RefreshCw,
   Shield,
   Star,
-  Stethoscope,
   Timer,
-  TrendingDown,
   Truck,
-  Users,
-  Wind,
-  Zap,
 } from "lucide-react";
-import { useState } from "react";
 import { useCountdown } from "../hooks/useCountdown";
 import { useOrderForm } from "../hooks/useOrderForm";
-import { INDIAN_STATES, ORIGINAL_PRICE, PRICE_PER_UNIT } from "../types";
+import { ORIGINAL_PRICE, PRICE_PER_UNIT } from "../types";
 
-const PRICES: Record<number, number> = { 1: 999, 2: 1799, 3: 2399 };
+const PRICES: Record<number, number> = { 1: 2490, 2: 3500 };
 
 function scrollToOrder() {
   document.getElementById("order-form")?.scrollIntoView({ behavior: "smooth" });
@@ -95,21 +85,7 @@ function HeroSection() {
             >
               अभी ऑर्डर करें — Order Now
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-secondary text-secondary font-bold text-base h-14 px-6 hover:bg-secondary/10 transition-smooth"
-              onClick={scrollToOrder}
-              data-ocid="hero-cod-cta"
-            >
-              <Package className="w-4 h-4 mr-2" />
-              Cash on Delivery
-            </Button>
           </div>
-          <p className="text-muted-foreground text-xs mt-3">
-            ✅ Free Delivery &nbsp; ✅ No Advance Payment &nbsp; ✅ 30-Day Money
-            Back
-          </p>
         </div>
 
         {/* Product Visual */}
@@ -185,71 +161,6 @@ function CountdownSection() {
   );
 }
 
-// ─── Section: Benefits ───────────────────────────────────────────────────────
-const BENEFITS = [
-  {
-    icon: Zap,
-    title: "Instant Relief",
-    desc: "From knee, back & joint pain within days",
-  },
-  {
-    icon: Bone,
-    title: "Strengthens Bones",
-    desc: "Builds cartilage and bone density naturally",
-  },
-  {
-    icon: TrendingDown,
-    title: "Reduces Swelling",
-    desc: "Anti-inflammatory action reduces puffiness",
-  },
-  {
-    icon: Wind,
-    title: "Better Mobility",
-    desc: "Improves flexibility and range of motion",
-  },
-  {
-    icon: Shield,
-    title: "No Steroids",
-    desc: "100% natural herbs, zero side effects",
-  },
-  {
-    icon: Users,
-    title: "All Ages 30+",
-    desc: "Safe and effective for men and women",
-  },
-];
-
-function BenefitsSection() {
-  return (
-    <section className="bg-background py-12 px-4">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="font-display font-bold text-3xl text-center text-foreground mb-2">
-          Why Choose <span className="text-primary">Cordycep Pulse?</span>
-        </h2>
-        <p className="text-center text-muted-foreground text-sm mb-8">
-          Clinically inspired Ayurvedic formulation — backed by ancient wisdom
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {BENEFITS.map(({ icon: Icon, title, desc }) => (
-            <div
-              key={title}
-              className="bg-card rounded-xl p-4 border border-border hover:shadow-subtle hover:border-primary/30 transition-smooth text-center"
-            >
-              <div className="w-12 h-12 rounded-full gradient-trust mx-auto mb-3 flex items-center justify-center">
-                <Icon className="w-6 h-6 text-secondary-foreground" />
-              </div>
-              <div className="font-display font-bold text-foreground text-sm mb-1">
-                {title}
-              </div>
-              <div className="text-muted-foreground text-xs">{desc}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ─── Section: Ingredients ────────────────────────────────────────────────────
 const INGREDIENTS = [
   {
@@ -301,65 +212,8 @@ function IngredientsSection() {
   );
 }
 
-// ─── Section: Conditions ─────────────────────────────────────────────────────
-const CONDITIONS = [
-  {
-    icon: HeartPulse,
-    name: "Arthritis",
-    desc: "Relieves chronic joint inflammation and stiffness",
-  },
-  {
-    icon: Bone,
-    name: "Knee Pain",
-    desc: "Targeted relief for knee joint degeneration",
-  },
-  {
-    icon: FlameKindling,
-    name: "Back Pain",
-    desc: "Soothes lumbar pain and spinal discomfort",
-  },
-  {
-    icon: Wind,
-    name: "Shoulder Pain",
-    desc: "Eases rotator cuff and frozen shoulder issues",
-  },
-  {
-    icon: Stethoscope,
-    name: "Cervical Pain",
-    desc: "Reduces neck and cervical spine tension",
-  },
-];
-
 function ConditionsSection() {
-  return (
-    <section className="bg-background py-12 px-4">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="font-display font-bold text-3xl text-center text-foreground mb-2">
-          Effective for{" "}
-          <span className="text-primary">All Types of Joint Pain</span>
-        </h2>
-        <p className="text-center text-muted-foreground text-sm mb-8">
-          One formula — comprehensive coverage
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {CONDITIONS.map(({ icon: Icon, name, desc }) => (
-            <div
-              key={name}
-              className="bg-card rounded-xl p-4 border border-border hover:border-primary/40 hover:shadow-subtle transition-smooth text-center"
-            >
-              <div className="w-10 h-10 rounded-full bg-primary/10 mx-auto mb-3 flex items-center justify-center">
-                <Icon className="w-5 h-5 text-primary" />
-              </div>
-              <div className="font-display font-bold text-foreground text-sm mb-1">
-                {name}
-              </div>
-              <div className="text-muted-foreground text-xs">{desc}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="bg-background py-12 px-4" />;
 }
 
 // ─── Section: Testimonials ───────────────────────────────────────────────────
@@ -457,16 +311,53 @@ function OrderFormSection() {
   const labelClass = "block text-foreground font-bold text-sm mb-1";
 
   return (
-    <section id="order-form" className="bg-card py-12 px-4">
-      <div className="max-w-lg mx-auto">
+    <section
+      id="order-form"
+      className="order-form-highlight py-14 px-4 relative overflow-hidden"
+    >
+      {/* Decorative background circles */}
+      <div
+        className="pointer-events-none absolute -top-16 -left-16 w-64 h-64 rounded-full opacity-20"
+        style={{ background: "oklch(0.72 0.2 35)" }}
+      />
+      <div
+        className="pointer-events-none absolute -bottom-16 -right-16 w-64 h-64 rounded-full opacity-20"
+        style={{ background: "oklch(0.63 0.22 35)" }}
+      />
+
+      <div className="max-w-lg mx-auto relative z-10">
+        {/* Eye-catching top label */}
+        <div className="flex justify-center mb-4">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold shadow-lg order-form-label">
+            🔥 सबसे बड़ा ऑफर — आज ही समाप्त!
+          </span>
+        </div>
+
         <div className="text-center mb-6">
-          <Badge className="badge-urgency mb-3">🎯 Limited Time Offer</Badge>
-          <h2 className="font-display font-bold text-3xl text-foreground leading-tight">
-            अभी ऑर्डर करें और <span className="text-primary">50% छूट पाएं</span>
+          <Badge className="badge-urgency mb-3 text-sm px-4 py-1.5">
+            🎯 Limited Time — 50% OFF
+          </Badge>
+          <h2 className="font-display font-bold text-4xl text-foreground leading-tight">
+            अभी ऑर्डर करें और{" "}
+            <span className="text-primary underline decoration-wavy decoration-primary/60">
+              50% छूट पाएं
+            </span>
           </h2>
-          <p className="text-muted-foreground text-sm mt-2">
-            Cash on Delivery — No advance payment required
+          <p className="text-muted-foreground text-sm mt-2 font-bold">
+            💳 Cash on Delivery — No advance payment required
           </p>
+          {/* Price highlight row */}
+          <div className="mt-4 flex items-center justify-center gap-3">
+            <span className="text-muted-foreground line-through text-lg">
+              ₹4,980
+            </span>
+            <span className="font-display font-black text-5xl text-primary">
+              ₹2,490
+            </span>
+            <span className="bg-destructive text-destructive-foreground rounded-full text-xs font-black px-2.5 py-1 shadow">
+              50% OFF
+            </span>
+          </div>
         </div>
 
         {isSuccess && (
@@ -555,46 +446,6 @@ function OrderFormSection() {
             )}
           </div>
 
-          {/* City + State */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label htmlFor="field-city" className={labelClass}>
-                City *
-              </label>
-              <input
-                id="field-city"
-                {...register("city", { required: "City is required" })}
-                className={inputClass}
-                placeholder="New Delhi"
-                data-ocid="input-city"
-              />
-              {errors.city && (
-                <p className={errorClass}>{errors.city.message}</p>
-              )}
-            </div>
-            <div>
-              <label htmlFor="field-state" className={labelClass}>
-                State *
-              </label>
-              <select
-                id="field-state"
-                {...register("state", { required: "State is required" })}
-                className={`${inputClass} cursor-pointer`}
-                data-ocid="select-state"
-              >
-                <option value="">Select State</option>
-                {INDIAN_STATES.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
-                ))}
-              </select>
-              {errors.state && (
-                <p className={errorClass}>{errors.state.message}</p>
-              )}
-            </div>
-          </div>
-
           {/* Pincode */}
           <div>
             <label htmlFor="field-pincode" className={labelClass}>
@@ -623,10 +474,10 @@ function OrderFormSection() {
           <div>
             <span className={labelClass}>Select Quantity</span>
             <div
-              className="grid grid-cols-3 gap-2"
+              className="grid grid-cols-2 gap-2"
               data-ocid="quantity-selector"
             >
-              {([1, 2, 3] as const).map((q) => (
+              {([1, 2] as const).map((q) => (
                 <button
                   type="button"
                   key={q}
@@ -644,7 +495,7 @@ function OrderFormSection() {
                   <div className="text-primary font-bold text-base">
                     ₹{PRICES[q]}
                   </div>
-                  {q === 3 && (
+                  {q === 2 && (
                     <div className="text-xs text-secondary font-bold mt-0.5">
                       Best Value!
                     </div>
@@ -674,15 +525,6 @@ function OrderFormSection() {
               "Place Order — Cash on Delivery"
             )}
           </Button>
-
-          <div className="flex items-start gap-2 text-muted-foreground text-xs">
-            <Truck className="w-4 h-4 shrink-0 mt-0.5" />
-            <span>
-              Your order will be delivered in{" "}
-              <strong className="text-foreground">3–5 business days</strong>.
-              Pay only when you receive your order.
-            </span>
-          </div>
         </form>
       </div>
     </section>
@@ -768,7 +610,7 @@ function FooterCTASection() {
           onClick={scrollToOrder}
           data-ocid="footer-order-cta"
         >
-          Order Now — ₹999 Only
+          Order Now — ₹2490 Only
         </Button>
         <div className="border-t border-border pt-4 text-muted-foreground/60 text-xs">
           © {currentYear} Cordycep Pulse. All rights reserved.
@@ -784,11 +626,10 @@ export default function LandingPage() {
     <div className="w-full">
       <HeroSection />
       <CountdownSection />
-      <BenefitsSection />
+      <OrderFormSection />
       <IngredientsSection />
       <ConditionsSection />
       <TestimonialsSection />
-      <OrderFormSection />
       <TrustBadgesSection />
       <FooterCTASection />
     </div>

@@ -152,4 +152,27 @@
   .text-star {
     color: var(--color-star);
   }
+
+  .order-form-highlight {
+    background: linear-gradient(
+      150deg,
+      oklch(0.97 0.04 55) 0%,
+      oklch(0.95 0.06 45) 40%,
+      oklch(0.93 0.08 38) 100%
+    );
+    border-top: 4px solid oklch(0.63 0.22 35);
+    border-bottom: 4px solid oklch(0.63 0.22 35);
+    box-shadow: 0 0 0 3px oklch(0.63 0.22 35 / 0.15), 0 8px 40px
+      oklch(0.63 0.22 35 / 0.25), inset 0 1px 0 oklch(1 0 0 / 0.6);
+  }
+
+  .order-form-label {
+    background: linear-gradient(
+      135deg,
+      oklch(0.63 0.22 35),
+      oklch(0.55 0.25 15)
+    );
+    color: oklch(0.98 0.008 80);
+    letter-spacing: 0.03em;
+  }
 }

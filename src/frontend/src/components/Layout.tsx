@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Package, PhoneCall, Truck } from "lucide-react";
 import type { ReactNode } from "react";
 
 interface LayoutProps {
@@ -43,65 +42,11 @@ export function Layout({ children, onOrderClick }: LayoutProps) {
         </div>
       </div>
 
-      {/* Top announcement bar */}
-      <div
-        className="gradient-urgent text-primary-foreground text-center py-2 px-4 text-xs sm:text-sm font-bold"
-        data-ocid="top-announcement-bar"
-      >
-        <div className="flex items-center justify-center gap-4 flex-wrap">
-          <span className="flex items-center gap-1">
-            <Truck className="w-3 h-3 shrink-0" />
-            Free Delivery Across India
-          </span>
-          <span className="hidden sm:inline text-primary-foreground/70">|</span>
-          <span className="flex items-center gap-1">
-            <Package className="w-3 h-3 shrink-0" />
-            Cash on Delivery Available
-          </span>
-          <span className="hidden sm:inline text-primary-foreground/70">|</span>
-          <span className="flex items-center gap-1">
-            <PhoneCall className="w-3 h-3 shrink-0" />
-            Call: 1800-123-4567
-          </span>
-        </div>
-      </div>
-
       {/* Sticky header */}
       <header
         className="sticky top-0 z-40 bg-card border-b shadow-sm"
         data-ocid="main-header"
-      >
-        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full gradient-trust flex items-center justify-center">
-              <span className="text-secondary-foreground font-bold text-sm">
-                C
-              </span>
-            </div>
-            <div>
-              <div className="font-display font-bold text-foreground text-sm sm:text-base leading-tight">
-                Cordycep Pulse
-              </div>
-              <div className="text-muted-foreground text-xs leading-tight hidden sm:block">
-                आयुर्वेदिक जोड़ दर्द उपचार
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-muted-foreground text-xs hidden sm:block">
-              Limited Stock!
-            </span>
-            <Button
-              size="sm"
-              className="gradient-trust text-secondary-foreground font-bold text-xs sm:text-sm border-0 hover:opacity-90 transition-smooth"
-              onClick={onOrderClick}
-              data-ocid="header-order-cta"
-            >
-              Order Now ₹999
-            </Button>
-          </div>
-        </div>
-      </header>
+      />
 
       {/* Main content */}
       <main className="flex-1 pb-20 sm:pb-0">{children}</main>
@@ -114,9 +59,6 @@ export function Layout({ children, onOrderClick }: LayoutProps) {
         <div className="max-w-5xl mx-auto">
           <div className="font-display font-bold text-foreground text-base mb-1">
             Cordycep Pulse
-          </div>
-          <div className="text-muted-foreground text-xs mb-3">
-            आयुर्वेदिक जोड़ दर्द उपचार | 100% Natural | Made in India
           </div>
           <div className="text-muted-foreground text-xs mb-4">
             For support: 1800-123-4567 | Available Mon–Sat, 9am–6pm IST
@@ -145,7 +87,7 @@ export function Layout({ children, onOrderClick }: LayoutProps) {
           onClick={onOrderClick}
           data-ocid="mobile-bottom-order-btn"
         >
-          Order Now - ₹999 Only
+          Order Now - ₹2490 Only
         </Button>
       </div>
     </div>

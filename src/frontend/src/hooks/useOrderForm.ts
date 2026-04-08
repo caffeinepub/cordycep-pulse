@@ -6,6 +6,8 @@ import { createActor } from "../backend";
 import type { FormData } from "../types";
 import { PRICE_PER_UNIT } from "../types";
 
+const BOTTLE_PRICES: Record<number, number> = { 1: 2490, 2: 3500 };
+
 export function useOrderForm() {
   const { actor } = useActor(createActor);
   const queryClient = useQueryClient();
@@ -15,8 +17,6 @@ export function useOrderForm() {
       name: "",
       phone: "",
       address: "",
-      city: "",
-      state: "",
       pincode: "",
       quantity: 1,
     },
@@ -26,13 +26,14 @@ export function useOrderForm() {
   const submitMutation = useMutation({
     mutationFn: async (data: FormData) => {
       if (!actor) throw new Error("Backend not ready");
-      const price = data.quantity * PRICE_PER_UNIT;
+      const price =
+        BOTTLE_PRICES[data.quantity] ?? data.quantity * PRICE_PER_UNIT;
       const orderId = await actor.submitOrder(
         data.name,
         data.phone,
         data.address,
-        data.city,
-        data.state,
+        "",
+        "",
         data.pincode,
         BigInt(data.quantity),
         BigInt(price),

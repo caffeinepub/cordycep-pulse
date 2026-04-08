@@ -15,8 +15,6 @@ export interface FormData {
   name: string;
   phone: string;
   address: string;
-  city: string;
-  state: string;
   pincode: string;
   quantity: number;
 }
@@ -67,5 +65,5 @@ export const INDIAN_STATES: string[] = [
   "Puducherry",
 ];
 
-export const PRICE_PER_UNIT = 999;
-export const ORIGINAL_PRICE = 1999;
+export const PRICE_PER_UNIT = 2490;
+export const ORIGINAL_PRICE = 4980;
