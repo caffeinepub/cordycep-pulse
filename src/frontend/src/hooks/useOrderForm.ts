@@ -1,5 +1,6 @@
 import { useActor } from "@caffeineai/core-infrastructure";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { createActor } from "../backend";
@@ -8,9 +9,18 @@ import { PRICE_PER_UNIT } from "../types";
 
 const BOTTLE_PRICES: Record<number, number> = { 1: 2490, 2: 3500 };
 
+export interface SubmittedOrderSnapshot {
+  name: string;
+  phone: string;
+  quantity: number;
+  totalPrice: number;
+  orderId: string;
+}
+
 export function useOrderForm() {
   const { actor } = useActor(createActor);
   const queryClient = useQueryClient();
+  const [snapshot, setSnapshot] = useState<SubmittedOrderSnapshot | null>(null);
 
   const form = useForm<FormData>({
     defaultValues: {
@@ -38,9 +48,16 @@ export function useOrderForm() {
         BigInt(data.quantity),
         BigInt(price),
       );
-      return orderId as string;
+      return { orderId: orderId as string, data, price };
     },
-    onSuccess: (orderId) => {
+    onSuccess: ({ orderId, data, price }) => {
+      setSnapshot({
+        name: data.name,
+        phone: data.phone,
+        quantity: data.quantity,
+        totalPrice: price,
+        orderId,
+      });
       toast.success(`ऑर्डर सफलतापूर्वक प्राप्त हुआ! Order ID: ${orderId}`, {
         duration: 6000,
         description:
@@ -62,11 +79,19 @@ export function useOrderForm() {
     submitMutation.mutate(data);
   });
 
+  function resetToForm() {
+    setSnapshot(null);
+    submitMutation.reset();
+    form.reset();
+  }
+
   return {
     form,
     onSubmit,
     isSubmitting: submitMutation.isPending,
     isSuccess: submitMutation.isSuccess,
-    orderId: submitMutation.data ?? null,
+    orderId: submitMutation.data?.orderId ?? null,
+    snapshot,
+    resetToForm,
   };
 }

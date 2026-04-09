@@ -13,7 +13,19 @@ mixin (orders : List.List<Types.Order>) {
     quantity : Nat,
     price : Nat,
   ) : async Text {
-    OrdersLib.createOrder(orders, name, phone, address, city, state, pincode, quantity, price);
+    // Save order locally first — always succeeds
+    let orderId = OrdersLib.createOrder(orders, name, phone, address, city, state, pincode, quantity, price);
+    // Retrieve the saved order to forward to Google Sheets
+    let savedOrder = switch (orders.find(func(o : Types.Order) : Bool { o.orderId == orderId })) {
+      case (?o) o;
+      case null {
+        // Should never happen — just return the orderId
+        return orderId;
+      };
+    };
+    // Fire-and-forget: notify Google Sheets asynchronously
+    ignore OrdersLib.notifyGoogleSheets(savedOrder);
+    orderId;
   };
 
   public query func getOrders() : async [Types.Order] {

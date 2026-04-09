@@ -5,6 +5,7 @@ import {
   CheckCircle,
   CreditCard,
   Leaf,
+  PackageCheck,
   Phone,
   RefreshCw,
   Shield,
@@ -293,9 +294,124 @@ function TestimonialsSection() {
   );
 }
 
+// ─── Section: Order Success ───────────────────────────────────────────────────
+interface OrderSuccessProps {
+  name: string;
+  phone: string;
+  quantity: number;
+  totalPrice: number;
+  orderId: string;
+  onReset: () => void;
+}
+
+function OrderSuccess({
+  name,
+  phone,
+  quantity,
+  totalPrice,
+  orderId,
+  onReset,
+}: OrderSuccessProps) {
+  return (
+    <div
+      className="bg-background rounded-2xl border-2 border-secondary p-6 sm:p-8 text-center shadow-glow-secondary animate-fade-in"
+      data-ocid="order-success-panel"
+    >
+      {/* Checkmark icon */}
+      <div className="flex justify-center mb-5">
+        <div className="w-20 h-20 rounded-full bg-secondary/15 border-4 border-secondary flex items-center justify-center shadow-glow-secondary">
+          <PackageCheck className="w-10 h-10 text-secondary" />
+        </div>
+      </div>
+
+      {/* Hindi headline */}
+      <h3 className="font-display font-black text-2xl sm:text-3xl text-secondary leading-tight mb-1">
+        🎉 आपका ऑर्डर सफलतापूर्वक दर्ज हो गया है!
+      </h3>
+      {/* English headline */}
+      <p className="font-display font-bold text-lg text-foreground mb-4">
+        Your order has been placed successfully!
+      </p>
+
+      {/* Order details card */}
+      <div className="bg-secondary/10 border border-secondary/30 rounded-xl p-4 mb-5 text-left space-y-2">
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-muted-foreground font-bold">Name / नाम</span>
+          <span className="text-foreground font-bold">{name}</span>
+        </div>
+        <div className="border-t border-secondary/20" />
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-muted-foreground font-bold">Phone / फोन</span>
+          <span className="text-foreground font-bold">{phone}</span>
+        </div>
+        <div className="border-t border-secondary/20" />
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-muted-foreground font-bold">
+            Quantity / मात्रा
+          </span>
+          <span className="text-foreground font-bold">
+            {quantity} {quantity === 1 ? "Bottle" : "Bottles"}
+          </span>
+        </div>
+        <div className="border-t border-secondary/20" />
+        <div className="flex items-center justify-between">
+          <span className="text-muted-foreground font-bold text-sm">
+            Total / कुल राशि
+          </span>
+          <span className="font-display font-black text-2xl text-primary">
+            ₹{totalPrice.toLocaleString("en-IN")}
+          </span>
+        </div>
+        <div className="border-t border-secondary/20" />
+        <div className="flex items-center justify-between text-xs">
+          <span className="text-muted-foreground font-bold">Order ID</span>
+          <span className="text-primary font-bold">{orderId}</span>
+        </div>
+      </div>
+
+      {/* Sub-messages */}
+      <div className="space-y-2 mb-6">
+        <p className="text-foreground font-bold text-sm">
+          हमारी टीम जल्द ही आपसे संपर्क करेगी।
+        </p>
+        <p className="text-muted-foreground text-sm">
+          Our team will contact you within 24 hours to confirm your order.
+        </p>
+        <div className="flex items-center justify-center gap-2 text-secondary text-xs font-bold mt-1">
+          <CheckCircle className="w-4 h-4 shrink-0" />
+          <span>
+            आपका विवरण सुरक्षित रूप से सहेजा गया है — Details saved &amp; delivery
+            confirmed in 3–5 days
+          </span>
+        </div>
+      </div>
+
+      {/* COD reminder */}
+      <div className="bg-primary/10 border border-primary/30 rounded-lg px-4 py-3 mb-6 text-sm text-foreground font-bold">
+        💵 Cash on Delivery — भुगतान डिलीवरी पर करें
+        <p className="text-muted-foreground font-normal text-xs mt-0.5">
+          Get 10% Extra discount on online payment
+        </p>
+      </div>
+
+      {/* Reset button */}
+      <Button
+        variant="outline"
+        className="w-full h-12 font-bold border-2 border-secondary text-secondary hover:bg-secondary/10 transition-smooth"
+        onClick={onReset}
+        data-ocid="place-another-order-btn"
+      >
+        <RefreshCw className="w-4 h-4 mr-2" />
+        Place Another Order / दूसरा ऑर्डर करें
+      </Button>
+    </div>
+  );
+}
+
 // ─── Section: Order Form ─────────────────────────────────────────────────────
 function OrderFormSection() {
-  const { form, onSubmit, isSubmitting, isSuccess, orderId } = useOrderForm();
+  const { form, onSubmit, isSubmitting, isSuccess, snapshot, resetToForm } =
+    useOrderForm();
   const {
     register,
     watch,
@@ -360,172 +476,164 @@ function OrderFormSection() {
           </div>
         </div>
 
-        {isSuccess && (
-          <div
-            className="bg-secondary/10 border border-secondary rounded-xl p-4 mb-5 flex items-center gap-3"
-            data-ocid="order-success-banner"
+        {/* ── Success panel replaces form ── */}
+        {isSuccess && snapshot ? (
+          <OrderSuccess
+            name={snapshot.name}
+            phone={snapshot.phone}
+            quantity={snapshot.quantity}
+            totalPrice={snapshot.totalPrice}
+            orderId={snapshot.orderId}
+            onReset={resetToForm}
+          />
+        ) : (
+          <form
+            onSubmit={onSubmit}
+            className="space-y-4 bg-background rounded-2xl p-5 border border-border shadow-subtle"
+            data-ocid="order-form-container"
+            noValidate
           >
-            <CheckCircle className="w-6 h-6 text-secondary shrink-0" />
+            {/* Name */}
             <div>
-              <div className="font-bold text-secondary text-sm">
-                ✅ ऑर्डर सफलतापूर्वक प्राप्त हुआ!
-              </div>
-              {orderId && (
-                <div className="text-foreground text-xs font-bold mt-0.5">
-                  Order ID: <span className="text-primary">{orderId}</span>
-                </div>
+              <label htmlFor="field-name" className={labelClass}>
+                Full Name *
+              </label>
+              <input
+                id="field-name"
+                {...register("name", { required: "Full name is required" })}
+                className={inputClass}
+                placeholder="Ramesh Kumar"
+                data-ocid="input-name"
+              />
+              {errors.name && (
+                <p className={errorClass}>{errors.name.message}</p>
               )}
-              <div className="text-muted-foreground text-xs mt-0.5">
-                हम जल्द ही आपसे संपर्क करेंगे। Delivered in 3–5 business days.
-              </div>
             </div>
-          </div>
-        )}
 
-        <form
-          onSubmit={onSubmit}
-          className="space-y-4 bg-background rounded-2xl p-5 border border-border shadow-subtle"
-          data-ocid="order-form-container"
-          noValidate
-        >
-          {/* Name */}
-          <div>
-            <label htmlFor="field-name" className={labelClass}>
-              Full Name *
-            </label>
-            <input
-              id="field-name"
-              {...register("name", { required: "Full name is required" })}
-              className={inputClass}
-              placeholder="Ramesh Kumar"
-              data-ocid="input-name"
-            />
-            {errors.name && <p className={errorClass}>{errors.name.message}</p>}
-          </div>
+            {/* Mobile */}
+            <div>
+              <label htmlFor="field-phone" className={labelClass}>
+                Mobile Number *
+              </label>
+              <input
+                id="field-phone"
+                {...register("phone", {
+                  required: "Mobile number is required",
+                  pattern: {
+                    value: /^[6-9]\d{9}$/,
+                    message: "Enter a valid 10-digit mobile number",
+                  },
+                })}
+                className={inputClass}
+                placeholder="9876543210"
+                type="tel"
+                maxLength={10}
+                data-ocid="input-phone"
+              />
+              {errors.phone && (
+                <p className={errorClass}>{errors.phone.message}</p>
+              )}
+            </div>
 
-          {/* Mobile */}
-          <div>
-            <label htmlFor="field-phone" className={labelClass}>
-              Mobile Number *
-            </label>
-            <input
-              id="field-phone"
-              {...register("phone", {
-                required: "Mobile number is required",
-                pattern: {
-                  value: /^[6-9]\d{9}$/,
-                  message: "Enter a valid 10-digit mobile number",
-                },
-              })}
-              className={inputClass}
-              placeholder="9876543210"
-              type="tel"
-              maxLength={10}
-              data-ocid="input-phone"
-            />
-            {errors.phone && (
-              <p className={errorClass}>{errors.phone.message}</p>
-            )}
-          </div>
+            {/* Address */}
+            <div>
+              <label htmlFor="field-address" className={labelClass}>
+                Full Address *
+              </label>
+              <textarea
+                id="field-address"
+                {...register("address", { required: "Address is required" })}
+                className={`${inputClass} resize-none`}
+                placeholder="House No, Street, Area..."
+                rows={2}
+                data-ocid="input-address"
+              />
+              {errors.address && (
+                <p className={errorClass}>{errors.address.message}</p>
+              )}
+            </div>
 
-          {/* Address */}
-          <div>
-            <label htmlFor="field-address" className={labelClass}>
-              Full Address *
-            </label>
-            <textarea
-              id="field-address"
-              {...register("address", { required: "Address is required" })}
-              className={`${inputClass} resize-none`}
-              placeholder="House No, Street, Area..."
-              rows={2}
-              data-ocid="input-address"
-            />
-            {errors.address && (
-              <p className={errorClass}>{errors.address.message}</p>
-            )}
-          </div>
+            {/* Pincode */}
+            <div>
+              <label htmlFor="field-pincode" className={labelClass}>
+                Pincode *
+              </label>
+              <input
+                id="field-pincode"
+                {...register("pincode", {
+                  required: "Pincode is required",
+                  pattern: {
+                    value: /^\d{6}$/,
+                    message: "Enter a valid 6-digit pincode",
+                  },
+                })}
+                className={inputClass}
+                placeholder="110001"
+                maxLength={6}
+                data-ocid="input-pincode"
+              />
+              {errors.pincode && (
+                <p className={errorClass}>{errors.pincode.message}</p>
+              )}
+            </div>
 
-          {/* Pincode */}
-          <div>
-            <label htmlFor="field-pincode" className={labelClass}>
-              Pincode *
-            </label>
-            <input
-              id="field-pincode"
-              {...register("pincode", {
-                required: "Pincode is required",
-                pattern: {
-                  value: /^\d{6}$/,
-                  message: "Enter a valid 6-digit pincode",
-                },
-              })}
-              className={inputClass}
-              placeholder="110001"
-              maxLength={6}
-              data-ocid="input-pincode"
-            />
-            {errors.pincode && (
-              <p className={errorClass}>{errors.pincode.message}</p>
-            )}
-          </div>
-
-          {/* Quantity selector */}
-          <div>
-            <span className={labelClass}>Select Quantity</span>
-            <div
-              className="grid grid-cols-2 gap-2"
-              data-ocid="quantity-selector"
-            >
-              {([1, 2] as const).map((q) => (
-                <button
-                  type="button"
-                  key={q}
-                  onClick={() => setValue("quantity", q)}
-                  className={`rounded-xl border-2 p-3 text-center transition-smooth cursor-pointer ${
-                    quantity === q
-                      ? "border-primary bg-primary/10 shadow-glow-primary"
-                      : "border-border bg-background hover:border-primary/40"
-                  }`}
-                  data-ocid={`qty-btn-${q}`}
-                >
-                  <div className="font-display font-bold text-foreground text-sm">
-                    {q} {q === 1 ? "Bottle" : "Bottles"}
-                  </div>
-                  <div className="text-primary font-bold text-base">
-                    ₹{PRICES[q]}
-                  </div>
-                  {q === 2 && (
-                    <div className="text-xs text-secondary font-bold mt-0.5">
-                      Best Value!
+            {/* Quantity selector */}
+            <div>
+              <span className={labelClass}>Select Quantity</span>
+              <div
+                className="grid grid-cols-2 gap-2"
+                data-ocid="quantity-selector"
+              >
+                {([1, 2] as const).map((q) => (
+                  <button
+                    type="button"
+                    key={q}
+                    onClick={() => setValue("quantity", q)}
+                    className={`rounded-xl border-2 p-3 text-center transition-smooth cursor-pointer ${
+                      quantity === q
+                        ? "border-primary bg-primary/10 shadow-glow-primary"
+                        : "border-border bg-background hover:border-primary/40"
+                    }`}
+                    data-ocid={`qty-btn-${q}`}
+                  >
+                    <div className="font-display font-bold text-foreground text-sm">
+                      {q} {q === 1 ? "Bottle" : "Bottles"}
                     </div>
-                  )}
-                </button>
-              ))}
+                    <div className="text-primary font-bold text-base">
+                      ₹{PRICES[q]}
+                    </div>
+                    {q === 2 && (
+                      <div className="text-xs text-secondary font-bold mt-0.5">
+                        Best Value!
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+              <p className="text-muted-foreground text-xs mt-2 text-right">
+                Total:{" "}
+                <strong className="text-primary text-sm">₹{totalPrice}</strong>
+              </p>
             </div>
-            <p className="text-muted-foreground text-xs mt-2 text-right">
-              Total:{" "}
-              <strong className="text-primary text-sm">₹{totalPrice}</strong>
-            </p>
-          </div>
 
-          {/* Submit */}
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full gradient-urgent text-primary-foreground font-bold text-lg border-0 h-14 rounded-xl pulse-highlight hover:opacity-90 transition-smooth shadow-glow-primary"
-            data-ocid="submit-order-btn"
-          >
-            {isSubmitting ? (
-              <span className="flex items-center gap-2">
-                <span className="animate-spin w-4 h-4 border-2 border-primary-foreground/50 border-t-primary-foreground rounded-full" />
-                Processing...
-              </span>
-            ) : (
-              "Place Order — Cash on Delivery"
-            )}
-          </Button>
-        </form>
+            {/* Submit */}
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full gradient-urgent text-primary-foreground font-bold text-lg border-0 h-14 rounded-xl pulse-highlight hover:opacity-90 transition-smooth shadow-glow-primary"
+              data-ocid="submit-order-btn"
+            >
+              {isSubmitting ? (
+                <span className="flex items-center gap-2">
+                  <span className="animate-spin w-4 h-4 border-2 border-primary-foreground/50 border-t-primary-foreground rounded-full" />
+                  Processing...
+                </span>
+              ) : (
+                "Place Order — Cash on Delivery"
+              )}
+            </Button>
+          </form>
+        )}
       </div>
     </section>
   );
